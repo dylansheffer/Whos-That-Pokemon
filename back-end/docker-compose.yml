@@ -1,32 +1,41 @@
-# Use postgres/example user/password credentials
-version: '3.1'
-
+version: '3.3'
 services:
   db:
+    container_name: postgres
     image: postgres
     restart: always
-    environment:
-      POSTGRES_DB: pokemon
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: example
-      PGDATA: /var/lib/postgresql/data/pgdata
+    build:
+      context: ./db
     volumes:
-      - db_data:/var/lib/postgresql/data/pgdata
-      - ./data:/docker-entrypoint-initdb.d/
+      - db:/var/lib/postgresql/data/
+    env_file:
+      - ./.env
+    networks:
+      - network
+    ports:
+      - 5432:5432
   adminer:
+    container_name: adminer
     image: adminer
     restart: always
     ports:
       - 8080:8080
-  postgraphile:
-    image: graphile/postgraphile
+  graphql:
+    image: graphql
+    container_name: graphql
     restart: always
+    build:
+      context: ./graphql
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+    networks:
+      - network
     ports:
-      - 5000:5000
-    environment:
-      POSTGRES_DB: pokemon
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: example
-      DATABASE_URL: "postgres://postgres:example@db:5432/pokemon"
+      - 5433:5433
+    command: ["--connection", "${DATABASE_URL}", "--port", "5433", "--schema", "public", "--append-plugins", "postgraphile-plugin-connection-filter"]
 volumes:
-  db_data:
+  db:
+networks:
+  network:
