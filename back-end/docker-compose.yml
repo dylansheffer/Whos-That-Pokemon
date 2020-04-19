@@ -34,7 +34,7 @@ services:
       - network
     ports:
       - 5433:5433
-    command: ["--connection", "${DATABASE_URL}", "--port", "5433", "--schema", "public", "--append-plugins", "postgraphile-plugin-connection-filter,@graphile-contrib/pg-simplify-inflector"]
+    command: ["--connection", "${DATABASE_URL}", "--port", "5433", "--schema", "public", "--append-plugins", "postgraphile-plugin-connection-filter,@graphile-contrib/pg-simplify-inflector", "--cors"]
 volumes:
   db:
 networks:
