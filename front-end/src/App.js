@@ -1,4 +1,6 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 
@@ -36,4 +38,14 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = state => ({
+
+});
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({
+
+  }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
