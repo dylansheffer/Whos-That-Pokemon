@@ -17,3 +17,48 @@ export const GET_POKEDEX_BY_ID = gql`
     }
   }
 `;
+
+export const GET_USER_BY_ID = gql`
+  query getUserById ($userId: Int!) {
+    user(userId: $userId) {
+      userId
+      username
+      firstName
+      lastName
+      pokedexes {
+        nodes {
+          pokedexId
+          po
+        }
+      }
+    }
+  }
+`;
+
+export const GET_USER_POKEDEX = gql`
+  query getUserPokedex($userId: Int!, $pokedexGeneration: Int) {
+    user(userId: $userId) {
+      userId
+      username
+      firstName
+      lastName
+      pokedexes(filter: {
+        generation: {equalTo: $pokedexGeneration}
+      }) {
+        nodes {
+          pokedexId
+          pokedexEntries {
+            nodes{
+              pokemon {
+                pokemonId
+                name
+              }
+              seen
+              caught
+            }
+          }
+        }
+      }
+    }
+  }
+`;

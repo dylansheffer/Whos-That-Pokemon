@@ -75,13 +75,13 @@ const PokedexEntry = props => {
         caught={caught}
       />
       <EntryImage
-        src={seen? require(`../static/pokemon/${pokemonId}.png`): unknown}
+        src={seen ? require(`../static/pokemon/${pokemonId}.png`) : unknown}
         seen={seen}
         caught={caught}
       />
       <EntryId>{pokemonId}</EntryId>
       <EntryName>
-        {(!caught) ?
+        {(caught) ?
             name :
             <span className="unknown"></span>
         }
