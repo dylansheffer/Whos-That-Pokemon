@@ -66,7 +66,7 @@ const EntryName = styled.p`
 `;
 
 const PokedexEntry = props => {
-  const {entry: {seen, caught, pokemon: {name, pokemonId, image}}} = props;
+  const {entry: {seen, caught, pokemon: { name, pokemonId }}} = props;
   return (
     <Entry>
       <EntryStatus
