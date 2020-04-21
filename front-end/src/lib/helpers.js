@@ -10,3 +10,5 @@ export const getRandomInt = (min, max) => {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min)) + min;
 }
+
+export const getPokemonImage = pokemonId => require(`../static/pokemon/${pokemonId}.png`)

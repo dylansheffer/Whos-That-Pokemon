@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 // import { Pokemon } from '../models/pokemon';
 import pokeball from '../static/pokeball.png';
+import unknown from '../static/unknown.png';
 
 /**
  * Returns the correct CSS Filter property for the state of the Pokedex Entry
@@ -16,11 +17,24 @@ const StatusFilterStyle = (caught, seen) => {
   if(caught) {
     return 'saturate(1)';
   }
-  else if(seen) {
+  else if (seen) {
     return 'saturate(0)';
   }
-
   return 'brightness(0)';
+};
+
+/**
+ * Returns the correct CSS Filter property for the state of the Pokedex Entry
+ *
+ * @param {boolean} caught
+ * @param {boolean} seen
+ * @returns {string} CSS Filter Function
+ */
+const ImageFilterStyle = (seen) => {
+  if(seen) {
+    return 'brightness(0)';
+  }
+  return 'saturate(1)';
 };
 
 const Entry = styled.div`
@@ -35,7 +49,7 @@ const EntryStatus = styled.img`
 `;
 
 const EntryImage = styled.img`
-filter: ${props => StatusFilterStyle(props.caught, props.seen)};
+filter: ${props => ImageFilterStyle(props.seen)};
 `;
 
 const EntryId = styled.p``;
@@ -52,16 +66,7 @@ const EntryName = styled.p`
 `;
 
 const PokedexEntry = props => {
-  const {
-    pokemon:
-    {
-      id,
-      name,
-      seen,
-      caught,
-      image,
-    }
-} = props;
+  const {entry: {seen, caught, pokemon: {name, pokemonId, image}}} = props;
   return (
     <Entry>
       <EntryStatus
@@ -70,15 +75,15 @@ const PokedexEntry = props => {
         caught={caught}
       />
       <EntryImage
-        src={image}
+        src={seen? require(`../static/pokemon/${pokemonId}.png`): unknown}
         seen={seen}
         caught={caught}
       />
-      <EntryId>{id}</EntryId>
+      <EntryId>{pokemonId}</EntryId>
       <EntryName>
-        {(caught) ?
+        {(!caught) ?
             name :
-            <div className="unknown"></div>
+            <span className="unknown"></span>
         }
       </EntryName>
     </Entry>
