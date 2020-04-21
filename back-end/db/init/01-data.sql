@@ -159,8 +159,8 @@ INSERT INTO pokemon ("pokemon_id", "name", "image") VALUES
 (151,'Mew','https://raw.githubusercontent.com/PokeAPI/pokeapi/master/data/Pokemon_XY_Sprites/151.png');
 
 /* Populate pokedex table */
-INSERT INTO pokedex ("pokedex_id", "user_id") VALUES
-(1,1);
+INSERT INTO pokedex ("pokedex_id", "user_id", "generation") VALUES
+(1,1,1);
 
 /* Populate pokedex_entries table */
 INSERT INTO pokedex_entries ("pokedex_id", "pokemon_id") VALUES
