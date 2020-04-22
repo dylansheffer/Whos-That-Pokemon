@@ -43,10 +43,6 @@ const checkAnswer = (selectedPokemonId, answerPokemonId) => `${selectedPokemonId
 
 // * Game component will control the state of the game, while the Quiz component will just render the app's state. That way I can more easily control reloading the quiz.
 const Game = (props) => {
-  console.group("Game Refresh");
-    console.count(`Game Loaded`);
-  console.groupEnd();
-
   const numberOfQuestions = 4;
   const { pokedex } = props;
   const { pokedexEntries: {nodes: pokedexEntries}} = pokedex;
