@@ -30,8 +30,8 @@ const StatusFilterStyle = (caught, seen) => {
  * @param {boolean} seen
  * @returns {string} CSS Filter Function
  */
-const ImageFilterStyle = (seen) => {
-  if(seen) {
+const ImageFilterStyle = (caught, seen) => {
+  if(!caught && seen) {
     return 'brightness(0)';
   }
   return 'saturate(1)';
@@ -49,7 +49,7 @@ const EntryStatus = styled.img`
 `;
 
 const EntryImage = styled.img`
-filter: ${props => ImageFilterStyle(props.seen)};
+filter: ${props => ImageFilterStyle(props.caught, props.seen)};
 `;
 
 const EntryId = styled.p``;

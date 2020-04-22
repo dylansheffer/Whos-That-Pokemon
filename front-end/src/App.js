@@ -2,8 +2,8 @@ import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 
 import Pokedex from './components/Pokedex';
-import Quiz from './components/Quiz';
 import { GET_USER_POKEDEX } from './actions/queries';
+import Game from './components/Game';
 
 
 
@@ -24,7 +24,7 @@ function App() {
   return (
     <div className="App">
       {/* <Pokedex pokedex={userPokedex} /> */}
-      <Quiz pokedex={userPokedex} />
+      <Game pokedex={userPokedex} />
     </div>
   );
 }

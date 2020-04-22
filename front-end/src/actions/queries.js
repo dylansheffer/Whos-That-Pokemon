@@ -47,6 +47,7 @@ export const GET_USER_POKEDEX = gql`
       }) {
         nodes {
           pokedexId
+          generation
           pokedexEntries {
             nodes{
               pokemon {

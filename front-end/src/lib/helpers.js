@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 export const handleErrors = (response) => {
   if (!response.ok) {
     throw Error(response.statusText);
@@ -12,3 +14,6 @@ export const getRandomInt = (min, max) => {
 }
 
 export const getPokemonImage = pokemonId => require(`../static/pokemon/${pokemonId}.png`)
+
+// * Convenience function for running an effect hook on component mount
+export const useMountEffect = (func) => useEffect(func, []);
