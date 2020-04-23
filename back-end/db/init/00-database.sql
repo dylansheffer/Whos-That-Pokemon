@@ -16,8 +16,7 @@ DROP TABLE IF EXISTS "pokemon";
 CREATE TABLE IF NOT EXISTS "pokemon" (
 "pokemon_id" INT PRIMARY KEY,
 "name" TEXT NOT NULL,
-"image" TEXT NOT NULL,
-UNIQUE ("pokemon_id", "name")
+"image" TEXT NOT NULL
 );
 
 /* Create pokedex table */

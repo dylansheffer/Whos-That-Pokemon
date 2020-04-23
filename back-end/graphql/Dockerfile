@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM graphile/postgraphile:latest
 
 # Install PostGraphile and PostGraphile connection filter plugin
 RUN npm install -g postgraphile

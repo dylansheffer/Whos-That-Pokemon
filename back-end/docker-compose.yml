@@ -20,6 +20,8 @@ services:
     restart: always
     ports:
       - 8080:8080
+    networks:
+      - network
   graphql:
     image: graphql
     container_name: graphql
