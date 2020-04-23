@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import { useMutation } from '@apollo/react-hooks';
+import wait from 'waait';
 
 import { Question } from '../objects/Question';
 import { getRandomInt, useMountEffect } from '../lib/helpers';
 import { CATCH_POKEMON, SEE_POKEMON, COMPLETE_POKEDEX } from '../actions/mutations';
 import Quiz from './Quiz';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 const selectUniquePokemon = (pokemonList, masterList) => {
   const pokemon = masterList[getRandomInt(0, masterList.length)];
@@ -47,6 +51,7 @@ const checkAnswer = (selectedPokemonId, answerPokemonId) => `${selectedPokemonId
 // * Game component will control the state of the game, while the Quiz component will just render the app's state. That way I can more easily control reloading the quiz.
 const Game = (props) => {
   const numberOfQuestions = 4;
+  const timeBetweenQuizzes = 3000;
   const [pokedex, setPokedex] = useState(props.pokedex);
   const { pokedexEntries: {nodes: pokedexEntries}} = pokedex;
   const { isComplete } = pokedex;
@@ -56,6 +61,7 @@ const Game = (props) => {
   const [catchPokemon] = useMutation(CATCH_POKEMON);
   const [completePokedex] = useMutation(COMPLETE_POKEDEX);
   const [questions, setQuestions] = useState([]);
+  const [answerIsCorrect, setAnswerIsCorrect] = useState();
   const answer = questions?.filter(q => q.isAnswer)[0];
 
   // * Update the answer as "seen" in the database when its dependent variables change
@@ -66,18 +72,21 @@ const Game = (props) => {
     }
   }, [questions, pokedex.pokedexId, seePokemon]);
 
+  useEffect(() => {
+    answerIsCorrect ? toast.success(`You caught a ${answer.pokemon.name}!`) : toast.error(`Wild Pokemon ran away...`);
+  }, [answerIsCorrect]);
+
   useMountEffect(() => {setQuestions(generateQuestions(numberOfQuestions, availablePokemon));});
 
   const onAnswerSelected = (e) => {
     const selectedPokemonId = e.target.value;
     // * Check If Answer is Correct
-    const answerIsCorrect = checkAnswer(selectedPokemonId, answer.pokemon.pokemonId);
+    setAnswerIsCorrect(checkAnswer(selectedPokemonId, answer.pokemon.pokemonId));
+
     // * If correct, set that pokemon as caught
     catchPokemon({variables: {pokedexId: pokedex.pokedexId, pokemonId: answer.pokemon.pokemonId, catchSuccessful: answerIsCorrect}})
     // * Update the pokedex with the latest information
     .then(({ data: { updatePokedexEntry: { pokedex }} }) => setPokedex(pokedex))
-    // * Show user the whether they caught the Pokemon or not
-    .then()
     // * Check to see if the Pokedex is complete
     .then(() => {
       const { pokedexEntries: { nodes: entries }} = pokedex;
@@ -86,11 +95,12 @@ const Game = (props) => {
         completePokedex({variables: {pokedexId: pokedex.pokedexId}})
       }
     })
-
-    .then(setQuestions(generateQuestions(numberOfQuestions, availablePokemon)))
-    // 3. Show message whether they got it right or wrong
-    // 4. Refresh the game
-
+    .then(async () => {
+      // * Give the user some time to see the result before loading new questions
+      await wait(timeBetweenQuizzes)
+      setAnswerIsCorrect(undefined);
+      setQuestions(generateQuestions(numberOfQuestions, availablePokemon));
+    })
   }
 
   if(isComplete) return <p>Congratulations! You Win!</p>
@@ -98,7 +108,10 @@ const Game = (props) => {
   if(seePokemonLoading || questions.length <= 0) return <p>Loading...</p>;
 
   return (
-    <Quiz questions={questions} answer={answer} onAnswerSelected={onAnswerSelected} />
+    <>
+      <ToastContainer autoClose={timeBetweenQuizzes} />
+      <Quiz questions={questions} answer={answer} onAnswerSelected={onAnswerSelected} answerIsCorrect={answerIsCorrect} />
+    </>
   );
 };
 
