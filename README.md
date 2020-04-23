@@ -1,4 +1,4 @@
-![Who's That Pokemon](/front-end/src/static/title.png)
+![Who's That Pokemon](https://i.imgur.com/lwp3k21.png)
 
 # Who's That Pokemon?!?
 
