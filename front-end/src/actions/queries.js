@@ -3,6 +3,8 @@ import { gql } from 'apollo-boost';
 export const GET_POKEDEX_BY_ID = gql`
   query getPokedexById($pokedexId: Int!) {
     pokedex(pokedexId: $pokedexId) {
+      pokedexId
+      isComplete
       pokedexEntries {
         nodes {
           pokemon {
@@ -25,12 +27,6 @@ export const GET_USER_BY_ID = gql`
       username
       firstName
       lastName
-      pokedexes {
-        nodes {
-          pokedexId
-          po
-        }
-      }
     }
   }
 `;
@@ -48,6 +44,7 @@ export const GET_USER_POKEDEX = gql`
         nodes {
           pokedexId
           generation
+          isComplete
           pokedexEntries {
             nodes{
               pokemon {
