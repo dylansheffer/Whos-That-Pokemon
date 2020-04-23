@@ -23,6 +23,8 @@ Who's That Pokemon?!? is a full-stack quiz game based off the famous [segment of
 7. Run `npm start` to start the React App
 8. Navigate to `localhost:3000` to play the game!
 
+#### `.env` File Contents
+
 ```env
 # DB
 # Parameters used by db container
