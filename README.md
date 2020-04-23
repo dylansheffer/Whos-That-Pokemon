@@ -61,6 +61,7 @@ The application is styled via [Styled Components](https://styled-components.com/
 ### Front-end
 
 - Use a service worker to save the pokemon image to the user's computer after they download it the first time
+- Add Prettier config, so my code will be automatically formatted
 - Add prop-types to components
 - Improve overall accessibility
   - Fix bug with keyboard navigation on the questions
