@@ -57,6 +57,7 @@ The application is styled via [Styled Components](https://styled-components.com/
   - This is important because the basic user SHOULD NOT have full CRUD access to the database nor be able to make complicated queries that could lock-up the database.
 - Add a Description field to the Pokemon object, which contains a description of the Pokemon
   - Allows me to make the quiz more accessible, if I can set the `alt` text to the Pokemon's description
+- Add every Pokemon and create different Pokedexes for each generation
 
 ### Front-end
 
@@ -70,4 +71,7 @@ The application is styled via [Styled Components](https://styled-components.com/
 - Use a custom component as the toast notification, so it matches the Pokemon ascetic.
 - Make the entire question a touch target instead of just the text.
 - Add a route that shows the user their current Pokedex progress
+- Add generation selector, to change between Pokemon generations
+- Create a proper victory screen
+- Create a consistent `loading...` component
 - Add gaudy 90's Pokemon sound effects
