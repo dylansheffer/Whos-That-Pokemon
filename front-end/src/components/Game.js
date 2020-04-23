@@ -73,7 +73,12 @@ const Game = (props) => {
   }, [questions, pokedex.pokedexId, seePokemon]);
 
   useEffect(() => {
-    answerIsCorrect ? toast.success(`You caught a ${answer.pokemon.name}!`) : toast.error(`Wild Pokemon ran away...`);
+    if (answerIsCorrect === true) {
+      toast.success(`You caught a ${answer.pokemon.name}!`);
+    }
+    else if(answerIsCorrect === false) {
+      toast.error(`Wild Pokemon ran away...`);
+    }
   }, [answerIsCorrect]);
 
   useMountEffect(() => {setQuestions(generateQuestions(numberOfQuestions, availablePokemon));});
