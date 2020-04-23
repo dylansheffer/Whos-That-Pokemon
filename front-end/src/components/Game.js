@@ -86,11 +86,15 @@ const Game = (props) => {
 
   const onAnswerSelected = (e) => {
     const selectedPokemonId = e.target.value;
+
+    // ? Store local variable here because `answerIsCorrect` will not be updated until next render
+    const selectedAnswerCorrect = checkAnswer(selectedPokemonId, answer.pokemon.pokemonId);
+
     // * Check If Answer is Correct
-    setAnswerIsCorrect(checkAnswer(selectedPokemonId, answer.pokemon.pokemonId));
+    setAnswerIsCorrect(selectedAnswerCorrect);
 
     // * If correct, set that pokemon as caught
-    catchPokemon({ variables: { pokedexId: pokedex.pokedexId, pokemonId: answer.pokemon.pokemonId, catchSuccessful: answerIsCorrect } })
+    catchPokemon({ variables: { pokedexId: pokedex.pokedexId, pokemonId: answer.pokemon.pokemonId, catchSuccessful: selectedAnswerCorrect } })
       // * Update the pokedex with the latest information
       .then(({ data: { updatePokedexEntry: { pokedex } } }) => setPokedex(pokedex))
       // * Check to see if the Pokedex is complete
