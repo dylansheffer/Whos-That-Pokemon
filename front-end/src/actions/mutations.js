@@ -58,6 +58,20 @@ export const CATCH_POKEMON = gql`
     }
   }
 `;
+export const RESET_ENTRY = gql`
+  mutation resetEntry($pokedexId: Int!, $pokemonId: Int!) {
+    updatePokedexEntry(input: {pokedexId: $pokedexId, pokemonId: $pokemonId, patch: {caught: false, seen: false}}) {
+      pokedexEntry {
+        seen
+        caught
+        pokemon {
+          pokemonId
+          name
+        }
+      }
+    }
+  }
+`;
 
 export const COMPLETE_POKEDEX = gql`
   mutation completePokedex($pokedexId: Int!) {

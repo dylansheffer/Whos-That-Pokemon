@@ -5,7 +5,7 @@ import wait from 'waait';
 
 import { Question } from '../objects/Question';
 import { getRandomInt, useMountEffect } from '../lib/helpers';
-import { CATCH_POKEMON, SEE_POKEMON, COMPLETE_POKEDEX } from '../actions/mutations';
+import { CATCH_POKEMON, SEE_POKEMON, COMPLETE_POKEDEX, RESET_ENTRY } from '../actions/mutations';
 import Quiz from './Quiz';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -60,6 +60,7 @@ const Game = (props) => {
   const [seePokemon, { loading: seePokemonLoading }  ] = useMutation(SEE_POKEMON);
   const [catchPokemon] = useMutation(CATCH_POKEMON);
   const [completePokedex] = useMutation(COMPLETE_POKEDEX);
+  // const [resetEntry] = useMutation(RESET_ENTRY);
   const [questions, setQuestions] = useState([]);
   const [answerIsCorrect, setAnswerIsCorrect] = useState();
   const answer = questions?.filter(q => q.isAnswer)[0];
@@ -108,6 +109,10 @@ const Game = (props) => {
     })
   }
 
+  // const onReset = () => {
+  //   pokedexEntries.map(e => resetEntry({variables: {pokedexId: pokedex.pokedexId, pokemonId: e.pokemon.pokemonId}}))
+  // };
+
   if(isComplete) return <p>Congratulations! You Win!</p>
 
   if(seePokemonLoading || questions.length <= 0) return <p>Loading...</p>;
@@ -115,6 +120,7 @@ const Game = (props) => {
   return (
     <>
       <ToastContainer autoClose={timeBetweenQuizzes} />
+      {/* <button onClick={onReset}>Reset</button> */}
       <Quiz questions={questions} answer={answer} onAnswerSelected={onAnswerSelected} answerIsCorrect={answerIsCorrect} />
     </>
   );
