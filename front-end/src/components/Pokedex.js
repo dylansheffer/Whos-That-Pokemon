@@ -12,7 +12,7 @@ const PokedexList = styled.ul`
 
 const Pokedex = props => {
   const { pokedex } = props;
-  return(
+  return (
     <PokedexList>
       {pokedex.pokedexEntries.nodes.map(e =>
         <li key={e.pokemon.pokemonId}>
@@ -20,8 +20,8 @@ const Pokedex = props => {
         </li>
       )}
     </PokedexList>
-    )
-  }
+  )
+}
 
 Pokedex.propTypes = {
   // pokedex: PropTypes.shape(PokedexModel),

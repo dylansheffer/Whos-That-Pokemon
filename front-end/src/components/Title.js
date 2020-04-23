@@ -11,7 +11,7 @@ const TitleStyle = styled.div`
   max-height: 100px;
 `;
 
-function Title({className, ...props}) {
+function Title({ className, ...props }) {
   return (
     <>
       <TitleStyle className={className} aria-hidden="true" />

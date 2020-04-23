@@ -110,7 +110,7 @@ const Quiz = (props) => {
         <MysteryPokemon className={`pokemon ${answerIsCorrect ? 'correct' : ''}`} pokemonId={answer.pokemon.pokemonId} aria-label={answer.pokemon.name} />
         <Questions className="questions">
           {questions ? questions.map(q => {
-            const { pokemon: {pokemonId, name}} = q;
+            const { pokemon: { pokemonId, name } } = q;
             return (
               <Question className="question" key={pokemonId}>
                 <input className="visually-hidden" type="radio" id={pokemonId} name="quiz" value={pokemonId} onChange={onAnswerSelected} />

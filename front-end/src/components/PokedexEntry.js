@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-// import { Pokemon } from '../models/pokemon';
 import pokeball from '../static/pokeball.png';
 import unknown from '../static/unknown.png';
 
@@ -14,7 +13,7 @@ import unknown from '../static/unknown.png';
  * @returns {string} CSS Filter Function
  */
 const StatusFilterStyle = (caught, seen) => {
-  if(caught) {
+  if (caught) {
     return 'saturate(1)';
   }
   else if (seen) {
@@ -31,7 +30,7 @@ const StatusFilterStyle = (caught, seen) => {
  * @returns {string} CSS Filter Function
  */
 const ImageFilterStyle = (caught, seen) => {
-  if(!caught && seen) {
+  if (!caught && seen) {
     return 'brightness(0)';
   }
   return 'saturate(1)';
@@ -66,7 +65,7 @@ const EntryName = styled.p`
 `;
 
 const PokedexEntry = props => {
-  const {entry: {seen, caught, pokemon: { name, pokemonId }}} = props;
+  const { entry: { seen, caught, pokemon: { name, pokemonId } } } = props;
   return (
     <Entry>
       <EntryStatus
@@ -82,8 +81,8 @@ const PokedexEntry = props => {
       <EntryId>{pokemonId}</EntryId>
       <EntryName>
         {(caught) ?
-            name :
-            <span className="unknown"></span>
+          name :
+          <span className="unknown"></span>
         }
       </EntryName>
     </Entry>
