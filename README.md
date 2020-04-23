@@ -15,12 +15,25 @@ Who's That Pokemon?!? is a full-stack quiz game based off the famous [segment of
 
 1. Clone Repo
 2. Navigate into the `back-end` folder in your terminal
-3. Start the Docker container by running `docker-compose up -d`
+3. Create a `.env` file in the root of `back-end` and add the contents below
+4. Start the Docker container by running `docker-compose up -d`
    - This will create containers for PostgreSQL, PostGraphile, and Adminer. It will also seed the database with the data it needs to run.
-4. Navigate to the `front-end` folder in your terminal
-5. Run `npm install` to download the javascript dependencies
-6. Run `npm start` to start the React App
-7. Navigate to `localhost:3000` to play the game!
+5. Navigate to the `front-end` folder in your terminal
+6. Run `npm install` to download the javascript dependencies
+7. Run `npm start` to start the React App
+8. Navigate to `localhost:3000` to play the game!
+
+```env
+# DB
+# Parameters used by db container
+POSTGRES_DB=pokemon
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD={YOUR SECRET}
+
+# GRAPHQL
+# Parameters used by graphql container
+DATABASE_URL=postgres://postgres:{YOUR SECRET}@postgres:5432/pokemon
+```
 
 ## Back-end
 
