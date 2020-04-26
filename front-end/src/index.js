@@ -7,7 +7,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import 'normalize.css';
-import './styles/global.css';
+import { GlobalStyle } from './styles/global';
 
 const client = new ApolloClient({
   uri: 'http://localhost:5433/graphql',
@@ -15,6 +15,7 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
+    <GlobalStyle />
     <App />
   </ApolloProvider>,
   document.getElementById('root')
