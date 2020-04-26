@@ -3,9 +3,11 @@ import ReactDOM from 'react-dom';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
 
-import './global.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+
+import 'normalize.css';
+import './styles/global.css';
 
 const client = new ApolloClient({
   uri: 'http://localhost:5433/graphql',
