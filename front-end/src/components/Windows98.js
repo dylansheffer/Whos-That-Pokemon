@@ -9,9 +9,10 @@ const Windows98Styles = styled.div`
 `;
 
 export const Windows98 = props => {
+  const { className, as, children } = props;
   return (
-    <Windows98Styles as={props.as} className={`${props.className} windows98`}>
-      {props.children}
+    <Windows98Styles as={as} className={`${className? className: ''} windows98`}>
+      {children}
     </Windows98Styles>
   );
 }
