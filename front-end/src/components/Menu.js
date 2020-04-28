@@ -61,32 +61,57 @@ const Windows98MenuItem = styled(InclusiveMenuButton)`
     color: black;
     background-color: transparent;
     &:focus, :hover {
-      color: white;
       outline: 0;
+      color: white;
       background-color: var(--dialog-blue)
     }
-    &:focus ~ :hover {
-
-    }
-  }
-  /* TODO: Fix selector where I'm trying to reset menu item that is focused when one is hovering over another */
-  [role^="menuitem"]:focus ~ [role^="menuitem"]:hover {
-    color: red;
   }
 `;
+
+const MenuItemStyle = styled.button`
+  &[role^="menuitem"].unfocused {
+    color: black;
+    background-color: transparent;
+  }
+`;
+
+const MenuItem = ({ children, className, as }) => {
+  // * Add unfocused Class if the hovered button isn't the focused button
+  const addUnfocusedClass = ({ nativeEvent: { toElement: hoveredElement } }) => {
+    const focusedElement = document.activeElement;
+    if(hoveredElement !== focusedElement && hoveredElement.tagName === focusedElement.tagName) {
+      focusedElement.classList.add('unfocused')
+    }
+  };
+  // * Remove unfocused class if the element receives focus
+  const removeUnfocusedClass = () => {
+    const focusedElement = document.activeElement;
+    focusedElement.classList.remove('unfocused');
+  };
+  return (
+    <MenuItemStyle
+      className={className}
+      as={as}
+      onMouseEnter={addUnfocusedClass}
+      onFocus={removeUnfocusedClass}
+    >
+      {children}
+    </MenuItemStyle>
+  );
+}
 
 const Menu = props => {
   return (
     <Windows98Menu>
       <Windows98MenuItem id="test" label="Test">
-        <button>Test 1</button>
-        <button>Test 2</button>
-        <button>Test 3</button>
+        <MenuItem>Test 1</MenuItem>
+        <MenuItem>Test 2</MenuItem>
+        <MenuItem>Test 3</MenuItem>
       </Windows98MenuItem>
       <Windows98MenuItem id="test2" label="Test2">
-        <button>Test 1</button>
-        <button>Test 2</button>
-        <button>Test 3</button>
+        <MenuItem>Test 1</MenuItem>
+        <MenuItem>Test 2</MenuItem>
+        <MenuItem>Test 3</MenuItem>
       </Windows98MenuItem>
     </Windows98Menu>
   );
