@@ -90,14 +90,6 @@ export const GlobalStyle = createGlobalStyle`
     white-space: nowrap;
   }
 
-  .Frame {
-    position: relative;
-    background-color: #bbc3c4;
-    padding: 3px;
-    box-shadow: inset -1px -1px 0px #0c0c0c, inset 1px 1px 0px #bbc3c4, inset -2px -2px 0px #808088, inset 2px 2px 0px #ffffff;
-    display: inline-block;
-  }
-
   ::-webkit-scrollbar {
     width: 16px;
   }
