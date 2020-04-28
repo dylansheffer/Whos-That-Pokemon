@@ -30,6 +30,8 @@ export const GlobalStyle = createGlobalStyle`
   --radio-width: 12px;
   --checkbox-width: 13px;
   --radio-label-spacing: 6px;
+  --scroll-bar-width: 16px;
+  --scroll-bar-height: 17px;
 
   /* Some detailed computations for radio buttons and checkboxes */
   --radio-total-width-precalc: var(--radio-width) + var(--radio-label-spacing);
@@ -91,11 +93,11 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   ::-webkit-scrollbar {
-    width: 16px;
+    width: var(--scroll-bar-width);
   }
 
   ::-webkit-scrollbar:horizontal {
-    height: 17px;
+    height: var(--scroll-bar-height);
   }
 
   ::-webkit-scrollbar-corner {
@@ -112,22 +114,22 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   ::-webkit-scrollbar-button:vertical:start {
-    height: 17px;
+    height: var(--scroll-bar-height);
     background-image: url("./icon/button-up.svg");
   }
 
   ::-webkit-scrollbar-button:vertical:end {
-    height: 17px;
+    height: var(--scroll-bar-height);
     background-image: url("./icon/button-down.svg");
   }
 
   ::-webkit-scrollbar-button:horizontal:start {
-    width: 16px;
+    width: var(--scroll-bar-width);
     background-image: url("./icon/button-left.svg");
   }
 
   ::-webkit-scrollbar-button:horizontal:end {
-    width: 16px;
+    width: var(--scroll-bar-width);
     background-image: url("./icon/button-right.svg");
   }
 

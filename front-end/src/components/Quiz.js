@@ -7,40 +7,26 @@ import Title from './Title';
 import backgroundImage from '../static/background.jpg'
 
 const Page = styled.div`
-  max-width: 600px;
+  height: 100%;
 `;
 // * Controls how individual components are laid out and interact with one another
 const QuizContent = styled.div`
-  width: 100%;
   height: 100%;
-  /* display: grid; */
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  .title {
-    grid-column: 1 / -1;
-    grid-row: 1;
-  }
-  .pokemon {
-    grid-column: 2 / 2;
-    grid-row: 2;
-    justify-self: center;
-  }
-  .questions {
-    grid-column: 1 / -1;
-    grid-row: 3;
-    justify-self: center;
-  }
+  display: flex;
+  flex-direction: column;
 `;
 
 const MysteryPokemonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   background-image: url(${backgroundImage});
   background-size: cover;
   background-position: left;
-  width: 100%;
-  height: 100%;
+  flex: 1 1 0;
 `;
 
 const MysteryPokemon = styled.div`
+  align-self: center;
   filter: brightness(0);
   &&.correct {
     filter: brightness(1);
@@ -56,6 +42,7 @@ const MysteryPokemon = styled.div`
 `;
 
 const Questions = styled.form`
+  flex-grow: 0;
   display: grid;
   background-color: white;
   width: 100%;
@@ -85,7 +72,7 @@ const Question = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  padding: 24px;
   font-family: 'VT323', monospace;
   font-size: 36px;
   &:hover {
