@@ -82,6 +82,10 @@ const MenuItem = ({ children, className, as }) => {
     if(hoveredElement !== focusedElement && hoveredElement.tagName === focusedElement.tagName) {
       focusedElement.classList.add('unfocused')
     }
+    else {
+      // * Remove unfocused if you hover back over the focused element
+      focusedElement.classList.remove('unfocused');
+    }
   };
   // * Remove unfocused class if the element receives focus
   const removeUnfocusedClass = () => {
