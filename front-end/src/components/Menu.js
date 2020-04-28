@@ -36,6 +36,10 @@ const Windows98MenuItem = styled(InclusiveMenuButton)`
   /* Button Styles */
   [data-inclusive-menu-opens] {
     background-color: var(--surface);
+    &:focus, :hover {
+      box-shadow: 1px 1px 0 var(--button-highlight) inset, -1px -1px 0 var(--button-shadow) inset;
+      outline: 0;
+    }
     /* Remove carrot */
     span {
       display: none;
