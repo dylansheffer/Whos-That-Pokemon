@@ -4,24 +4,19 @@ import styled from 'styled-components';
 import { getPokemonImage } from '../lib/helpers';
 import Title from './Title';
 
-import backgroundImage from '../static/background.png'
+import backgroundImage from '../static/background.jpg'
 
 const Page = styled.div`
-  height: 100vh;
-  width: 100vw;
-  background-image: url(${backgroundImage});
-  background-size: cover;
-  background-position: left;
+  max-width: 600px;
 `;
 // * Controls how individual components are laid out and interact with one another
 const QuizContent = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 100%;
-  display: grid;
+  /* display: grid; */
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   .title {
-    margin: 16px;
     grid-column: 1 / -1;
     grid-row: 1;
   }
@@ -35,10 +30,14 @@ const QuizContent = styled.div`
     grid-row: 3;
     justify-self: center;
   }
+`;
 
-  @media screen and (min-width: 1000px) {
-    width: 60vw;
-  }
+const MysteryPokemonContainer = styled.div`
+  background-image: url(${backgroundImage});
+  background-size: cover;
+  background-position: left;
+  width: 100%;
+  height: 100%;
 `;
 
 const MysteryPokemon = styled.div`
@@ -106,8 +105,10 @@ const Quiz = (props) => {
   return (
     <Page>
       <QuizContent>
-        <Title className="title" />
-        <MysteryPokemon className={`pokemon ${answerIsCorrect ? 'correct' : ''}`} pokemonId={answer.pokemon.pokemonId} aria-label={answer.pokemon.name} />
+        <MysteryPokemonContainer>
+          <Title className="title" />
+          <MysteryPokemon className={`pokemon ${answerIsCorrect ? 'correct' : ''}`} pokemonId={answer.pokemon.pokemonId} aria-label={answer.pokemon.name} />
+        </MysteryPokemonContainer>
         <Questions className="questions">
           {questions ? questions.map(q => {
             const { pokemon: { pokemonId, name } } = q;
