@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import pokeball from '../static/pokeball.png';
-import unknown from '../static/unknown.png';
 
 /**
  * Returns the correct CSS Filter property for the state of the Pokedex Entry
@@ -36,9 +35,28 @@ const ImageFilterStyle = (caught, seen) => {
   return 'saturate(1)';
 };
 
-const Entry = styled.div`
-  display: flex;
+const Entry = styled.button`
+  border: 0;
+  width: 100%;
+  text-align: left;
+  background: none;
+  cursor: pointer;
+`;
+
+
+const EntryImage = styled.img`
+filter: ${props => ImageFilterStyle(props.caught, props.seen)};
+`;
+const PokemonNameContainer = styled.div`
+  margin: 4px 0 4px 16px;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
   align-items: center;
+`;
+
+const EntryId = styled.div`
+  font-family: var(--pixel-font);
+  font-size: 24px;
 `;
 
 const EntryStatus = styled.img`
@@ -47,39 +65,45 @@ const EntryStatus = styled.img`
   filter: ${props => StatusFilterStyle(props.caught, props.seen)};
 `;
 
-const EntryImage = styled.img`
-filter: ${props => ImageFilterStyle(props.caught, props.seen)};
-`;
-
-const EntryId = styled.p``;
-
 const EntryName = styled.p`
+  font-size: 24px;
+  font-family: var(--pixel-font);
   text-transform: capitalize;
   display: flex;
+  margin: 0;
   .unknown {
     height: 24px;
-    width: 350px;
+    width: 100%;
+    min-width: 75px;
     border-radius: 10px;
     background-color: black;
   }
 `;
 
+const PokemonId = ({ pokemonId }) => {
+  const displayId = (pokemonId) => `${pokemonId}`.padStart(3, '0');
+  return <EntryId>{displayId(pokemonId)}</EntryId>
+}
+
+
 const PokedexEntry = props => {
   const { entry: { seen, caught, pokemon: { name, pokemonId } } } = props;
   return (
     <Entry>
-      <EntryStatus
-        src={pokeball}
-        seen={seen}
-        caught={caught}
-      />
-      <EntryId>{pokemonId}</EntryId>
-      <EntryName>
-        {(caught) ?
-          name :
-          <span className="unknown"></span>
-        }
-      </EntryName>
+      <PokemonId pokemonId={pokemonId} />
+      <PokemonNameContainer>
+        <EntryStatus
+          src={pokeball}
+          seen={seen}
+          caught={caught}
+        />
+        <EntryName>
+          {(caught) ?
+            name :
+            <span className="unknown"></span>
+          }
+        </EntryName>
+      </PokemonNameContainer>
     </Entry>
   );
 };

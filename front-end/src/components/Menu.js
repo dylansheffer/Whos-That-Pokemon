@@ -69,6 +69,7 @@ const Windows98MenuItem = styled(InclusiveMenuButton)`
 `;
 
 const MenuItemStyle = styled.button`
+  padding: 1px 7px 2px;
   &[role^="menuitem"].unfocused {
     color: black;
     background-color: transparent;
@@ -107,15 +108,14 @@ const MenuItem = ({ children, className, as }) => {
 const Menu = props => {
   return (
     <Windows98Menu>
-      <Windows98MenuItem id="test" label="Test">
-        <MenuItem>Test 1</MenuItem>
-        <MenuItem>Test 2</MenuItem>
-        <MenuItem>Test 3</MenuItem>
+      <Windows98MenuItem id="profile" label="Profile">
+        {/* TODO: Get user data from GraphQL API */}
+        <MenuItem as="p">Dylan</MenuItem>
+        <MenuItem>Profile</MenuItem>
+        <MenuItem>Sign Out</MenuItem>
       </Windows98MenuItem>
-      <Windows98MenuItem id="test2" label="Test2">
-        <MenuItem>Test 1</MenuItem>
-        <MenuItem>Test 2</MenuItem>
-        <MenuItem>Test 3</MenuItem>
+      <Windows98MenuItem id="pokedex" label="Pokedex">
+        <MenuItem>View Pokedex</MenuItem>
       </Windows98MenuItem>
     </Windows98Menu>
   );

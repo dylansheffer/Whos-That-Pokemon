@@ -7,57 +7,64 @@ import Title from './Title';
 import backgroundImage from '../static/background.jpg'
 import Pokedex from './Pokedex';
 
-const QuizContent = styled.div`
+const QuizLayout = styled.div`
   height: 100%;
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: 2fr 1fr;
+
+  .mystery {
+    grid-column: 1 / span 4;
+    grid-row: 1 / span 1;
+  }
+  .pokedex {
+    grid-column: 5 / -1;
+    grid-row: 1 / span 1;
+    overflow: hidden;
+  }
+  .questions {
+    grid-column: 1 / -1;
+    grid-row: 2 / -1;
+  }
 `;
 
 const MysteryPokemonBreakPoint = '900px';
 
 const MysteryPokemonContainer = styled.div`
-  display: grid;
-  grid-row-start: span 2;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
   background-image: url(${backgroundImage});
   background-size: cover;
   background-position: left;
   @media (min-width: ${MysteryPokemonBreakPoint}) {
-    grid-template-columns: 2fr 1fr;
   }
 `;
 
 const MysteryPokemonStyles = styled.div`
   display: grid;
-  grid-template-columns: 1fr;
+  height: 100%;
+  width: 100%;
+  grid-template-columns: 3fr 1fr;
   grid-template-rows: 1fr 4fr;
   align-items: center;
 
-  .title, .pokemon {
-    margin: 0 auto;
+  .title {
+    grid-column: span 2;
+  }
+
+  .pokemon {
+    grid-column: 1 / 1;
   }
 `;
 
-const PokedexStyles = styled.div`
+const PokedexContainer = styled.div`
   display: none;
-  background-color: var(--surface);
-  border: 1px solid var(--button-shadow);
   @media (min-width: ${MysteryPokemonBreakPoint}) {
-    overflow-y: auto;
     display: block;
   }
 `;
 
-const PokedexTitle = styled.h2`
-  font-family: 'VT323', monospace;
-  font-size: 32px;
-  text-align: center;
-`;
+
 
 const MysteryPokemon = styled.div`
-  align-self: center;
   filter: brightness(0);
   &&.correct {
     filter: brightness(1);
@@ -68,11 +75,12 @@ const MysteryPokemon = styled.div`
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+  margin: 0 auto;
 `;
 
 const Questions = styled.form`
   display: grid;
-  background-color: white;
+  background-color: var(--pokemon-ui-surface);
   width: 100%;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
@@ -101,7 +109,7 @@ const Question = styled.div`
   align-items: center;
   justify-content: center;
   padding: 24px;
-  font-family: 'VT323', monospace;
+  font-family: var(--pixel-font);
   font-size: 36px;
   &:hover {
     background-color: lightgray;
@@ -118,17 +126,16 @@ const Quiz = (props) => {
 
 
   return (
-    <QuizContent>
-      <MysteryPokemonContainer>
+    <QuizLayout>
+      <MysteryPokemonContainer className="mystery">
         <MysteryPokemonStyles className="mystery-pokemon">
           <Title className="title" />
           <MysteryPokemon className={`pokemon ${answerIsCorrect ? 'correct' : ''}`} pokemonId={answer.pokemon.pokemonId} aria-label={answer.pokemon.name} />
         </MysteryPokemonStyles>
-        <PokedexStyles className="pokedex">
-          <PokedexTitle>Pokedex</PokedexTitle>
-          <Pokedex pokedex={pokedex} />
-        </PokedexStyles>
       </MysteryPokemonContainer>
+      <PokedexContainer className="pokedex">
+        <Pokedex pokedex={pokedex} />
+      </PokedexContainer>
       <Questions className="questions">
         {questions ? questions.map(q => {
           const { pokemon: { pokemonId, name } } = q;
@@ -140,7 +147,7 @@ const Quiz = (props) => {
           );
         }) : <p>Loading...</p>}
       </Questions>
-    </QuizContent>
+    </QuizLayout>
   );
 };
 
