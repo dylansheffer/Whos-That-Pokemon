@@ -5,6 +5,9 @@ import MsSans2 from './fonts/ms_sans_serif.woff2';
 import MsSansBold from './fonts/ms_sans_serif_bold.woff';
 import MsSansBold2 from './fonts/ms_sans_serif_bold.woff2';
 
+import Default from '../static/pointers/default.cur'
+import Pointer from '../static/pointers/pointer.cur'
+
 export const GlobalStyle = createGlobalStyle`
 :root {
   /**
@@ -22,6 +25,10 @@ export const GlobalStyle = createGlobalStyle`
   --dialog-blue: #000080;
   --dialog-blue-light: #1084d0;
   --link-blue: #0000ff;
+  --pokemon-ui-surface: #eaeaea;
+
+  /* Typography */
+  --pixel-font: 'VT323', monospace;
 
   /* Spacing */
   --element-spacing: 8px;
@@ -78,8 +85,19 @@ export const GlobalStyle = createGlobalStyle`
 
   * {
     box-sizing: border-box;
-    cursor: url('data:image/gif;base64,R0lGODlhCwATAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAALABMAAAIrhI4JlhrcBAgvSlrbxPBs7mAU9IlMaV7mwo6jY2zk+Xphh8iWint1tDgUAAA7'),
-      default;
+    cursor: url(${Default}), default;
+  }
+
+  button, a, input, label {
+    &:hover {
+      cursor: url(${Pointer}), pointer;
+    }
+    * {
+      &:hover {
+        cursor: url(${Pointer}), pointer;
+      }
+
+    }
   }
 
   .visually-hidden {
