@@ -8,9 +8,9 @@ const TitleStyle = styled.div`
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  height: 50px;
-  width: 50%;
-  min-width: 380px;
+  height: 100%;
+  max-height: 75px;
+  width: 100%;
 `;
 
 function Title({ className, ...props }) {
