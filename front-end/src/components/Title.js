@@ -7,8 +7,10 @@ const TitleStyle = styled.div`
   background-image: url(${titleImage});
   background-size: contain;
   background-repeat: no-repeat;
+  background-position: center;
   height: 100%;
-  max-height: 100px;
+  max-height: 75px;
+  width: 100%;
 `;
 
 function Title({ className, ...props }) {

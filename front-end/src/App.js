@@ -1,7 +1,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 
-import Pokedex from './components/Pokedex';
 import Game from './components/Game';
 import Header from './components/Header';
 
@@ -29,13 +28,13 @@ function App() {
     height: 100vh;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
   `;
 
   return (
     <App className="App">
       <Header />
       <Game pokedex={userPokedex} />
-      {/* <Pokedex pokedex={userPokedex} /> */}
     </App>
   );
 }
