@@ -6,6 +6,7 @@ import Game from './components/Game';
 import Header from './components/Header';
 
 import { GET_USER_POKEDEX } from './actions/queries';
+import styled from 'styled-components';
 
 
 
@@ -23,12 +24,20 @@ function App() {
   const { user: { pokedexes: { nodes: pokedexes } } } = data;
   const userPokedex = pokedexes[0];
 
+  const App = styled.div`
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  `;
+
   return (
-    <div className="App">
+    <App className="App">
       <Header />
       <Game pokedex={userPokedex} />
       {/* <Pokedex pokedex={userPokedex} /> */}
-    </div>
+    </App>
   );
 }
 

@@ -125,7 +125,7 @@ const Game = (props) => {
     <>
       <ToastContainer autoClose={timeBetweenQuizzes} />
       {/* <button onClick={onReset}>Reset</button> */}
-      <Quiz questions={questions} answer={answer} onAnswerSelected={onAnswerSelected} answerIsCorrect={answerIsCorrect} />
+      <Quiz questions={questions} answer={answer} onAnswerSelected={onAnswerSelected} answerIsCorrect={answerIsCorrect} pokedex={pokedex} />
     </>
   );
 };

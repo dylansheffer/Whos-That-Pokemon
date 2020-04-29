@@ -4,52 +4,66 @@ import styled from 'styled-components';
 import { getPokemonImage } from '../lib/helpers';
 import Title from './Title';
 
-import backgroundImage from '../static/background.png'
+import backgroundImage from '../static/background.jpg'
+import Pokedex from './Pokedex';
 
-const Page = styled.div`
-  height: 100vh;
-  width: 100vw;
+const QuizContent = styled.div`
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(3, 1fr);
+`;
+
+const MysteryPokemonBreakPoint = '900px';
+
+const MysteryPokemonContainer = styled.div`
+  display: grid;
+  grid-row-start: span 2;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
   background-image: url(${backgroundImage});
   background-size: cover;
   background-position: left;
+  @media (min-width: ${MysteryPokemonBreakPoint}) {
+    grid-template-columns: 2fr 1fr;
+  }
 `;
-// * Controls how individual components are laid out and interact with one another
-const QuizContent = styled.div`
-  width: 100vw;
-  height: 100%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  .title {
-    margin: 16px;
-    grid-column: 1 / -1;
-    grid-row: 1;
-  }
-  .pokemon {
-    grid-column: 2 / 2;
-    grid-row: 2;
-    justify-self: center;
-  }
-  .questions {
-    grid-column: 1 / -1;
-    grid-row: 3;
-    justify-self: center;
-  }
 
-  @media screen and (min-width: 1000px) {
-    width: 60vw;
+const MysteryPokemonStyles = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 4fr;
+  align-items: center;
+
+  .title, .pokemon {
+    margin: 0 auto;
   }
+`;
+
+const PokedexStyles = styled.div`
+  display: none;
+  background-color: var(--surface);
+  border: 1px solid var(--button-shadow);
+  @media (min-width: ${MysteryPokemonBreakPoint}) {
+    overflow-y: auto;
+    display: block;
+  }
+`;
+
+const PokedexTitle = styled.h2`
+  font-family: 'VT323', monospace;
+  font-size: 32px;
+  text-align: center;
 `;
 
 const MysteryPokemon = styled.div`
+  align-self: center;
   filter: brightness(0);
   &&.correct {
     filter: brightness(1);
   }
   width: 300px;
   height: 300px;
-  min-height: 100px;
-  min-width: 100px;
   background-image: url(${props => getPokemonImage(props.pokemonId)});
   background-size: contain;
   background-repeat: no-repeat;
@@ -86,7 +100,7 @@ const Question = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  padding: 24px;
   font-family: 'VT323', monospace;
   font-size: 36px;
   &:hover {
@@ -99,28 +113,34 @@ const Question = styled.div`
 
 
 
-
 const Quiz = (props) => {
-  const { questions, answer, onAnswerSelected, answerIsCorrect } = props;
+  const { questions, answer, onAnswerSelected, answerIsCorrect, pokedex } = props;
+
 
   return (
-    <Page>
-      <QuizContent>
-        <Title className="title" />
-        <MysteryPokemon className={`pokemon ${answerIsCorrect ? 'correct' : ''}`} pokemonId={answer.pokemon.pokemonId} aria-label={answer.pokemon.name} />
-        <Questions className="questions">
-          {questions ? questions.map(q => {
-            const { pokemon: { pokemonId, name } } = q;
-            return (
-              <Question className="question" key={pokemonId}>
-                <input className="visually-hidden" type="radio" id={pokemonId} name="quiz" value={pokemonId} onChange={onAnswerSelected} />
-                <label htmlFor={pokemonId}>{name}</label>
-              </Question>
-            );
-          }) : <p>Loading...</p>}
-        </Questions>
-      </QuizContent>
-    </Page>
+    <QuizContent>
+      <MysteryPokemonContainer>
+        <MysteryPokemonStyles className="mystery-pokemon">
+          <Title className="title" />
+          <MysteryPokemon className={`pokemon ${answerIsCorrect ? 'correct' : ''}`} pokemonId={answer.pokemon.pokemonId} aria-label={answer.pokemon.name} />
+        </MysteryPokemonStyles>
+        <PokedexStyles className="pokedex">
+          <PokedexTitle>Pokedex</PokedexTitle>
+          <Pokedex pokedex={pokedex} />
+        </PokedexStyles>
+      </MysteryPokemonContainer>
+      <Questions className="questions">
+        {questions ? questions.map(q => {
+          const { pokemon: { pokemonId, name } } = q;
+          return (
+            <Question className="question" key={pokemonId}>
+              <input className="visually-hidden" type="radio" id={pokemonId} name="quiz" value={pokemonId} onChange={onAnswerSelected} />
+              <label htmlFor={pokemonId}>{name}</label>
+            </Question>
+          );
+        }) : <p>Loading...</p>}
+      </Questions>
+    </QuizContent>
   );
 };
 

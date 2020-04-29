@@ -73,11 +73,6 @@ const PokedexEntry = props => {
         seen={seen}
         caught={caught}
       />
-      <EntryImage
-        src={seen ? require(`../static/pokemon/${pokemonId}.png`) : unknown}
-        seen={seen}
-        caught={caught}
-      />
       <EntryId>{pokemonId}</EntryId>
       <EntryName>
         {(caught) ?
