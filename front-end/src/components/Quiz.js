@@ -9,6 +9,7 @@ import Pokedex from './Pokedex';
 
 const QuizLayout = styled.div`
   height: 100%;
+  overflow-y: auto;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: 2fr 1fr;
@@ -122,11 +123,11 @@ const Question = styled.div`
 
 
 const Quiz = (props) => {
-  const { questions, answer, onAnswerSelected, answerIsCorrect, pokedex } = props;
+  const { questions, answer, onAnswerSelected, answerIsCorrect, pokedex, className } = props;
 
 
   return (
-    <QuizLayout>
+    <QuizLayout className={className}>
       <MysteryPokemonContainer className="mystery">
         <MysteryPokemonStyles className="mystery-pokemon">
           <Title className="title" />

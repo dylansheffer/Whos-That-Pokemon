@@ -24,17 +24,24 @@ function App() {
   const userPokedex = pokedexes[0];
 
   const App = styled.div`
-    width: 100vw;
+    display: grid;
     height: 100vh;
-    display: flex;
-    flex-direction: column;
+    width: 100vw;
+    grid-template-columns: 1fr;
+    grid-template-rows: 36px auto;
     overflow: hidden;
+    .header {
+      grid-row: 1 / 1;
+    }
+    .game {
+      grid-row: 2 / -1;
+    }
   `;
 
   return (
     <App className="App">
-      <Header />
-      <Game pokedex={userPokedex} />
+      <Header className="header" />
+      <Game className="game" pokedex={userPokedex} />
     </App>
   );
 }
