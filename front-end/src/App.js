@@ -7,9 +7,22 @@ import Header from './components/Header';
 import { GET_USER_POKEDEX } from './actions/queries';
 import styled from 'styled-components';
 
+const AppStyles = styled.div`
+display: grid;
+height: 100vh;
+width: 100vw;
+grid-template-columns: 1fr;
+grid-template-rows: 36px auto;
+overflow: hidden;
+.header {
+  grid-row: 1 / 1;
+}
+.game {
+  grid-row: 2 / -1;
+}
+`;
 
-
-function App() {
+const App = () => {
   // ? Temporarily setting myself as the default user for testing purposes
   const userId = 1;
   // ? Hardcoding the Pokedex generation to 1, because I haven't added the other generations data in
@@ -23,26 +36,11 @@ function App() {
   const { user: { pokedexes: { nodes: pokedexes } } } = data;
   const userPokedex = pokedexes[0];
 
-  const App = styled.div`
-    display: grid;
-    height: 100vh;
-    width: 100vw;
-    grid-template-columns: 1fr;
-    grid-template-rows: 36px auto;
-    overflow: hidden;
-    .header {
-      grid-row: 1 / 1;
-    }
-    .game {
-      grid-row: 2 / -1;
-    }
-  `;
-
   return (
-    <App className="App">
+    <AppStyles className="App">
       <Header className="header" />
       <Game className="game" pokedex={userPokedex} />
-    </App>
+    </AppStyles>
   );
 }
 
