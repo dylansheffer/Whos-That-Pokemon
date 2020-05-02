@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import pokeball from '../static/pokeball.png';
+import { Windows98PopUp } from './Windows98Popup';
 
 /**
  * Returns the correct CSS Filter property for the state of the Pokedex Entry
@@ -86,26 +87,49 @@ const PokemonId = ({ pokemonId }) => {
 }
 
 
-const PokedexEntry = props => {
-  const { entry: { seen, caught, pokemon: { name, pokemonId } } } = props;
-  return (
-    <Entry>
-      <PokemonId pokemonId={pokemonId} />
-      <PokemonNameContainer>
-        <EntryStatus
-          src={pokeball}
-          seen={seen}
-          caught={caught}
-        />
-        <EntryName>
-          {(caught) ?
-            name :
-            <span className="unknown"></span>
-          }
-        </EntryName>
-      </PokemonNameContainer>
-    </Entry>
-  );
+
+class PokedexEntry extends React.Component {
+  openPopup = () => {
+    this.dialog.show();
+  }
+
+  closePopup = () => {
+    this.dialog.hide();
+  }
+
+  render () {
+    const { entry: { seen, caught, pokemon: { name, pokemonId } } } = this.props;
+    return (
+      <>
+        <Entry onClick={this.openPopup}>
+          <PokemonId pokemonId={pokemonId} />
+          <PokemonNameContainer>
+            <EntryStatus
+              src={pokeball}
+              seen={seen}
+              caught={caught}
+            />
+            <EntryName>
+              {(caught) ?
+                name :
+                <span className="unknown"></span>
+              }
+            </EntryName>
+          </PokemonNameContainer>
+        </Entry>
+        <Windows98PopUp
+          id={`pokedex-entry-${pokemonId}`}
+          appRoot="#main"
+          dialogRoot="#dialog-root"
+          dialogRef={(dialog) => (this.dialog = dialog)}
+          title="Pokemon Entry"
+          onClose={this.closePopup}
+          >
+          {name}
+        </Windows98PopUp>
+      </>
+    );
+  }
 };
 
 PokedexEntry.propTypes = {
