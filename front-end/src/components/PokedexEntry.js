@@ -115,7 +115,7 @@ const PokedexPopup = ({ entry }) => {
   return (
     <PokedexPopupStyle>
       <EntryImage caught={caught} seen={seen} pokemonId={pokemon.pokemonId} className='popup-image' />
-      <Entry as='div'>
+      <Entry as='div' className='popup-entry'>
         <PokemonId pokemonId={pokemon.pokemonId} />
         <PokemonNameContainer>
           <EntryStatus
@@ -123,7 +123,7 @@ const PokedexPopup = ({ entry }) => {
             seen={seen}
             caught={caught}
           />
-          <EntryName caught={caught} pokemonName={pokemon.name} className='popup-name' />
+          <EntryName caught={caught} pokemonName={pokemon.name} />
         </PokemonNameContainer>
       </Entry>
     </PokedexPopupStyle>
