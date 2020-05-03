@@ -4,6 +4,8 @@ import styled from 'styled-components';
 
 import pokeball from '../static/pokeball.png';
 import { Windows98PopUp } from './Windows98Popup';
+import { getPokemonImage } from '../lib/helpers';
+import UnknownPokemonImage from '../static/unknown.png'
 
 /**
  * Returns the correct CSS Filter property for the state of the Pokedex Entry
@@ -45,9 +47,14 @@ const Entry = styled.button`
 `;
 
 
-const EntryImage = styled.img`
-filter: ${props => ImageFilterStyle(props.caught, props.seen)};
+const EntryImageStyle = styled.img`
+  filter: ${({ caught, seen }) => ImageFilterStyle(caught, seen)};
 `;
+
+const EntryImage = ({caught, seen, pokemonId, ...rest }) => {
+  const imageSrc = (caught || seen) ? getPokemonImage(pokemonId) : UnknownPokemonImage;
+  return <EntryImageStyle caught={caught} seen={seen} src={imageSrc} {...rest} />;
+}
 const PokemonNameContainer = styled.div`
   margin: 4px 0 4px 16px;
   display: grid;
@@ -63,10 +70,10 @@ const EntryId = styled.div`
 const EntryStatus = styled.img`
   width: 24px;
   height: 24px;
-  filter: ${props => StatusFilterStyle(props.caught, props.seen)};
+  filter: ${({ caught, seen }) => StatusFilterStyle(caught, seen)};
 `;
 
-const EntryName = styled.p`
+const EntryNameStyle = styled.p`
   font-size: 24px;
   font-family: var(--pixel-font);
   text-transform: capitalize;
@@ -81,12 +88,47 @@ const EntryName = styled.p`
   }
 `;
 
+const EntryName = ({ caught, pokemonName, ...rest}) => {
+  return (
+    <EntryNameStyle {...rest}>
+      {(caught) ?
+        pokemonName :
+        <span className="unknown"></span>
+      }
+    </EntryNameStyle>
+  );
+}
+
 const PokemonId = ({ pokemonId }) => {
   const displayId = (pokemonId) => `${pokemonId}`.padStart(3, '0');
   return <EntryId>{displayId(pokemonId)}</EntryId>
 }
 
+const PokedexPopupStyle = styled.div`
+  padding: 8px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+`;
 
+const PokedexPopup = ({ entry }) => {
+  const { seen, caught, pokemon } = entry;
+  return (
+    <PokedexPopupStyle>
+      <EntryImage caught={caught} seen={seen} pokemonId={pokemon.pokemonId} className='popup-image' />
+      <Entry as='div'>
+        <PokemonId pokemonId={pokemon.pokemonId} />
+        <PokemonNameContainer>
+          <EntryStatus
+            src={pokeball}
+            seen={seen}
+            caught={caught}
+          />
+          <EntryName caught={caught} pokemonName={pokemon.name} className='popup-name' />
+        </PokemonNameContainer>
+      </Entry>
+    </PokedexPopupStyle>
+  )
+}
 
 class PokedexEntry extends React.Component {
   openPopup = () => {
@@ -97,35 +139,30 @@ class PokedexEntry extends React.Component {
     this.dialog.hide();
   }
 
-  render () {
-    const { entry: { seen, caught, pokemon: { name, pokemonId } } } = this.props;
+  render() {
+    const { entry: { seen, caught, pokemon }, entry } = this.props;
     return (
       <>
         <Entry onClick={this.openPopup}>
-          <PokemonId pokemonId={pokemonId} />
+          <PokemonId pokemonId={pokemon.pokemonId} />
           <PokemonNameContainer>
             <EntryStatus
               src={pokeball}
               seen={seen}
               caught={caught}
             />
-            <EntryName>
-              {(caught) ?
-                name :
-                <span className="unknown"></span>
-              }
-            </EntryName>
+            <EntryName caught={caught} pokemonName={pokemon.name} />
           </PokemonNameContainer>
         </Entry>
         <Windows98PopUp
-          id={`pokedex-entry-${pokemonId}`}
+          id={`pokedex-entry-${pokemon.pokemonId}`}
           appRoot="#main"
           dialogRoot="#dialog-root"
           dialogRef={(dialog) => (this.dialog = dialog)}
-          title="Pokemon Entry"
+          title="Pokedex Entry"
           onClose={this.closePopup}
-          >
-          {name}
+        >
+          <PokedexPopup entry={entry} />
         </Windows98PopUp>
       </>
     );

@@ -22,6 +22,7 @@ const StyledDialog = ({children, className, title, id, onClose, ...rest}) => {
       <TitleBar
         title={title}
         onClose={onClose}
+        aria-hidden="true"
       />
       {children}
     </Dialog>
