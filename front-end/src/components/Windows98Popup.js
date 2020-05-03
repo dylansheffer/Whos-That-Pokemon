@@ -35,6 +35,7 @@ export const Windows98PopUp = styled(StyledDialog)`
     padding: 0;
     border: 0;
     width: 80%;
+    max-width: 750px;
   }
   .content {
     max-height: 90vh;
