@@ -104,9 +104,9 @@ const MenuItem = ({ children, ...rest }) => {
   );
 }
 
-const navigateTo = link => { window.location.assign(link) };
 
 const Menu = props => {
+  const navigateTo = link => { window.location.assign(link) };
   return (
     <Windows98Menu>
       <Windows98MenuItem id="profile" label="Profile">
