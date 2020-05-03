@@ -76,7 +76,7 @@ const MenuItemStyle = styled.button`
   }
 `;
 
-const MenuItem = ({ children, className, as }) => {
+const MenuItem = ({ children, ...rest }) => {
   // * Add unfocused Class if the hovered button isn't the focused button
   const addUnfocusedClass = ({ nativeEvent: { toElement: hoveredElement } }) => {
     const focusedElement = document.activeElement;
@@ -95,24 +95,25 @@ const MenuItem = ({ children, className, as }) => {
   };
   return (
     <MenuItemStyle
-      className={className}
-      as={as}
       onMouseEnter={addUnfocusedClass}
       onFocus={removeUnfocusedClass}
+      {...rest}
     >
       {children}
     </MenuItemStyle>
   );
 }
 
+const navigateTo = link => { window.location.assign(link) };
+
 const Menu = props => {
   return (
     <Windows98Menu>
       <Windows98MenuItem id="profile" label="Profile">
         {/* TODO: Get user data from GraphQL API */}
-        <MenuItem as="p">Dylan</MenuItem>
-        <MenuItem>Profile</MenuItem>
-        <MenuItem>Sign Out</MenuItem>
+        <MenuItem as="p">Dylan Sheffer</MenuItem>
+        <MenuItem onClick={() => navigateTo("https://www.dylansheffer.com/")}>Website</MenuItem>
+        <MenuItem onClick={() => navigateTo("https://github.com/dylansheffer/")}>GitHub</MenuItem>
       </Windows98MenuItem>
       <Windows98MenuItem id="pokedex" label="Pokedex">
         <MenuItem>View Pokedex</MenuItem>
