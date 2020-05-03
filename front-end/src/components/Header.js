@@ -3,11 +3,11 @@ import React from 'react';
 import TitleBar from './TitleBar';
 import Menu from './Menu';
 
-function Header(props) {
+function Header({pokedex, ...rest}) {
   return (
-    <header className={props.className}>
+    <header {...rest}>
       <TitleBar title="Who's That Pokemon?!?" />
-      <Menu />
+      <Menu pokedex={pokedex} />
     </header>
   );
 }

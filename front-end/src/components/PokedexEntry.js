@@ -110,7 +110,7 @@ const PokedexPopupStyle = styled.div`
   grid-template-columns: 1fr 2fr;
 `;
 
-const PokedexPopup = ({ entry }) => {
+const PokedexEntryPopup = ({ entry }) => {
   const { seen, caught, pokemon } = entry;
   return (
     <PokedexPopupStyle>
@@ -162,7 +162,7 @@ class PokedexEntry extends React.Component {
           title="Pokedex Entry"
           onClose={this.closePopup}
         >
-          <PokedexPopup entry={entry} />
+          <PokedexEntryPopup entry={entry} />
         </Windows98PopUp>
       </>
     );

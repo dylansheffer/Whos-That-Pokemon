@@ -13,30 +13,35 @@ const QuizLayout = styled.div`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: 2fr 1fr;
-
   .mystery {
-    grid-column: 1 / span 4;
-    grid-row: 1 / span 1;
+    grid-column: 1 / -1;
+    grid-row: 1 / 1;
   }
   .pokedex {
-    grid-column: 5 / -1;
-    grid-row: 1 / span 1;
-    overflow: hidden;
+    display: none;
   }
   .questions {
     grid-column: 1 / -1;
     grid-row: 2 / -1;
   }
+  @media (min-width: 900px) {
+    .mystery {
+      grid-column: 1 / span 4;
+      grid-row: 1 / span 1;
+    }
+    .pokedex {
+      display: block;
+      grid-column: 5 / -1;
+      grid-row: 1 / span 1;
+      overflow: hidden;
+    }
+  }
 `;
-
-const MysteryPokemonBreakPoint = '900px';
 
 const MysteryPokemonContainer = styled.div`
   background-image: url(${backgroundImage});
   background-size: cover;
   background-position: left;
-  @media (min-width: ${MysteryPokemonBreakPoint}) {
-  }
 `;
 
 const MysteryPokemonStyles = styled.div`
@@ -56,12 +61,7 @@ const MysteryPokemonStyles = styled.div`
   }
 `;
 
-const PokedexContainer = styled.div`
-  display: none;
-  @media (min-width: ${MysteryPokemonBreakPoint}) {
-    display: block;
-  }
-`;
+const PokedexContainer = styled.div``;
 
 
 

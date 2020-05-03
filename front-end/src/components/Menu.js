@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import MenuButton from 'react-menu-button';
 
+import { Windows98PopUp } from './Windows98Popup';
+import Pokedex from './Pokedex';
+
 const InclusiveMenuButton = styled(MenuButton)`
   position: relative;
   display: inline-block;
@@ -105,21 +108,42 @@ const MenuItem = ({ children, ...rest }) => {
 }
 
 
-const Menu = props => {
-  const navigateTo = link => { window.location.assign(link) };
-  return (
-    <Windows98Menu>
-      <Windows98MenuItem id="profile" label="Profile">
-        {/* TODO: Get user data from GraphQL API */}
-        <MenuItem as="p">Dylan Sheffer</MenuItem>
-        <MenuItem onClick={() => navigateTo("https://www.dylansheffer.com/")}>Website</MenuItem>
-        <MenuItem onClick={() => navigateTo("https://github.com/dylansheffer/")}>GitHub</MenuItem>
-      </Windows98MenuItem>
-      <Windows98MenuItem id="pokedex" label="Pokedex">
-        <MenuItem>View Pokedex</MenuItem>
-      </Windows98MenuItem>
-    </Windows98Menu>
-  );
+class Menu extends React.Component {
+  navigateTo = link => { window.location.assign(link) };
+  openPopup = () => {
+    this.dialog.show();
+  }
+  closePopup = () => {
+    this.dialog.hide();
+  }
+  render() {
+    const { pokedex } = this.props;
+    return (
+      <>
+        <Windows98Menu>
+          <Windows98MenuItem id="profile" label="Profile">
+            {/* TODO: Get user data from GraphQL API */}
+            <MenuItem as="p">Dylan Sheffer</MenuItem>
+            <MenuItem onClick={() => this.navigateTo("https://www.dylansheffer.com/")}>Website</MenuItem>
+            <MenuItem onClick={() => this.navigateTo("https://github.com/dylansheffer/")}>GitHub</MenuItem>
+          </Windows98MenuItem>
+          <Windows98MenuItem id="pokedex" label="Pokedex">
+            <MenuItem onClick={this.openPopup}>View Pokedex</MenuItem>
+          </Windows98MenuItem>
+        </Windows98Menu>
+        <Windows98PopUp
+            id={`pokedex`}
+            appRoot="#main"
+            dialogRoot="#dialog-root"
+            dialogRef={(dialog) => (this.dialog = dialog)}
+            title="Pokedex"
+            onClose={this.closePopup}
+          >
+            <Pokedex pokedex={pokedex} />
+          </Windows98PopUp>
+      </>
+    );
+  }
 };
 
 Menu.propTypes = {

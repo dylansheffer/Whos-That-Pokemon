@@ -12,7 +12,7 @@ display: grid;
 height: 100vh;
 width: 100vw;
 grid-template-columns: 1fr;
-grid-template-rows: 36px auto;
+grid-template-rows: 36px 1fr;
 overflow: hidden;
 .header {
   grid-row: 1 / 1;
@@ -38,7 +38,7 @@ const App = () => {
 
   return (
     <AppStyles className="App">
-      <Header className="header" />
+      <Header className="header" pokedex={userPokedex} />
       <Game className="game" pokedex={userPokedex} />
     </AppStyles>
   );

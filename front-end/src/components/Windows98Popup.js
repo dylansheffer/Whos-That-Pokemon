@@ -24,7 +24,9 @@ const StyledDialog = ({children, className, title, id, onClose, ...rest}) => {
         onClose={onClose}
         aria-hidden="true"
       />
-      {children}
+      <div className="content">
+        {children}
+      </div>
     </Dialog>
 )}
 
@@ -32,5 +34,10 @@ export const Windows98PopUp = styled(StyledDialog)`
   dialog {
     padding: 0;
     border: 0;
+    width: 80%;
+  }
+  .content {
+    max-height: 90vh;
+    overflow: auto;
   }
 `;
