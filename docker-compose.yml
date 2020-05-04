@@ -1,0 +1,70 @@
+version: '3.7'
+services:
+  db:
+    container_name: postgres
+    image: postgres
+    restart: always
+    build:
+      context: ./back-end/db
+    volumes:
+      - db:/var/lib/postgresql/data/
+    env_file:
+      - ./.env
+    networks:
+      - network
+    ports:
+      - 5432:5432
+  adminer:
+    container_name: adminer
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - network
+  graphql:
+    image: graphql
+    container_name: graphql
+    restart: always
+    build:
+      context: ./back-end/graphql
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+    networks:
+      - network
+    ports:
+      - 5433:5433
+    command:
+      [
+        '--connection',
+        '${DATABASE_URL}',
+        '--port',
+        '5433',
+        '--schema',
+        'public',
+        '--append-plugins',
+        'postgraphile-plugin-connection-filter,@graphile-contrib/pg-simplify-inflector',
+        '--cors',
+      ]
+  front_end:
+    container_name: front_end
+    stdin_open: true
+    tty: true
+    volumes:
+      - './front-end:/app'
+      - '/app/node_modules'
+    build:
+      context: ./front-end/
+      dockerfile: Dockerfile
+    ports:
+      - 80:3000
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    networks:
+      - network
+volumes:
+  db:
+networks:
+  network:
