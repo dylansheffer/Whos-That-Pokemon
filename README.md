@@ -11,17 +11,18 @@ Who's That Pokemon?!? is a full-stack quiz game based off the famous [segment of
 - [Node](https://nodejs.org/en/download/)
 - [Docker](https://www.docker.com/get-started)
 
-### Install Steps
+### Development Install Steps
 
 1. Clone Repo
-2. Navigate into the `back-end` folder in your terminal
-3. Create a `.env` file in the root of `back-end` and add the contents below
-4. Start the Docker container by running `docker-compose up -d`
-   - This will create containers for PostgreSQL, PostGraphile, and Adminer. It will also seed the database with the data it needs to run.
-5. Navigate to the `front-end` folder in your terminal
-6. Run `npm install` to download the javascript dependencies
-7. Run `npm start` to start the React App
-8. Navigate to `localhost:3000` to play the game!
+2. Create a `.env` file in the root of the directory and add the contents below
+3. Start the Docker container by running `docker-compose up -d --build`
+4. Navigate to `localhost` to play the game!
+
+### Production Build Steps
+
+1. Run `docker-compose down -v` to bring down the development containers (if they're running)
+2. Start the Docker container by running `docker-compose -f docker-compose.prod.yml up --build -d`
+3. The game is running at `localhost`
 
 #### `.env` File Contents
 
@@ -62,14 +63,9 @@ The application is styled via [Styled Components](https://styled-components.com/
 
 ### General
 
-- Refactor the Docker Compose, so that it will also start the React.
-
 ### Back-end
 
 - User registration
-- Create an intermediary GraphQL API that sits between Apollo Client on the front-end and my PostGraphile API on the back-end
-  - This would allow me to perform custom server-side logic and query/mutation resolvers, perform authentication, check permissions, and to disable CORS on my PostGraphile API
-  - This is important because the basic user SHOULD NOT have full CRUD access to the database nor be able to make complicated queries that could lock-up the database.
 - Add a Description field to the Pokemon object, which contains a description of the Pokemon
   - Allows me to make the quiz more accessible, if I can set the `alt` text to the Pokemon's description
 - Add every Pokemon and create different Pokedexes for each generation

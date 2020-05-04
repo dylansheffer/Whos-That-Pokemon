@@ -80,7 +80,7 @@ const Game = (props) => {
     else if (answerIsCorrect === false) {
       toast.error(`Wild Pokemon ran away...`);
     }
-  }, [answerIsCorrect]);
+  }, [answerIsCorrect, answer]);
 
   useMountEffect(() => { setQuestions(generateQuestions(numberOfQuestions, availablePokemon)); });
 
