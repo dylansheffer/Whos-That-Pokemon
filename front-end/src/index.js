@@ -9,8 +9,14 @@ import * as serviceWorker from './serviceWorker';
 import 'normalize.css';
 import { GlobalStyle } from './styles/global';
 
+let apiUri = 'http://localhost:5433/graphql';
+
+if (process.env.NODE_ENV === 'production') {
+  apiUri = '54.242.154.14:5433/graphql'
+}
+
 const client = new ApolloClient({
-  uri: 'http://localhost:5433/graphql',
+  uri: apiUri,
 });
 
 ReactDOM.render(
