@@ -1,11 +1,11 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
+import styled from 'styled-components';
 
 import Game from './components/Game';
 import Header from './components/Header';
 
 import { GET_USER_POKEDEX } from './actions/queries';
-import styled from 'styled-components';
 
 const AppStyles = styled.div`
 display: grid;

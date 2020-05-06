@@ -10,6 +10,13 @@ import Pointer from '../static/pointers/pointer.cur'
 
 export const GlobalStyle = createGlobalStyle`
 :root {
+  /* Center Dialogs */
+  dialog {
+    position: fixed;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+
   /**
   * Windows 98 Styles from 98.css
   * Copyright (c) 2020 Jordan Scales <thatjdanisso.cool>

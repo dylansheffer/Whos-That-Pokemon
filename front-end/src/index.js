@@ -7,6 +7,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import 'normalize.css';
+import 'dialog-polyfill/dist/dialog-polyfill.css';
 import { GlobalStyle } from './styles/global';
 
 const apiUri = process.env.REACT_APP_GRAPHQL;
