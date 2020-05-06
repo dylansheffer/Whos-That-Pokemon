@@ -8,7 +8,6 @@ import backgroundImage from '../static/background.jpg'
 import Pokedex from './Pokedex';
 
 const QuizLayout = styled.div`
-  height: 100%;
   overflow-y: auto;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
