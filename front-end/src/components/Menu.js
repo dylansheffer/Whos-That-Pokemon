@@ -84,7 +84,7 @@ const MenuItem = ({ children, ...rest }) => {
   // * Add unfocused Class if the hovered button isn't the focused button
   const addUnfocusedClass = ({ nativeEvent: { toElement: hoveredElement } }) => {
     const focusedElement = document.activeElement;
-    if(hoveredElement !== focusedElement && hoveredElement.tagName === focusedElement.tagName) {
+    if(hoveredElement !== focusedElement && hoveredElement?.tagName === focusedElement?.tagName) {
       focusedElement.classList.add('unfocused')
     }
     else {
