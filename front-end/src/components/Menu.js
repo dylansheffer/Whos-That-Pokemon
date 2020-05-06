@@ -31,6 +31,7 @@ const Windows98Menu = styled.nav`
   font-family: 'Pixelated MS Sans Serif', Arial;
   -webkit-font-smoothing: none;
   font-size: 12px;
+  height: 20px;
 `;
 
 const Windows98MenuItem = styled(InclusiveMenuButton)`
