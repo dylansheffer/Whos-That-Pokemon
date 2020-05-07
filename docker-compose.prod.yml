@@ -50,6 +50,8 @@ services:
         '--retry-on-init-fail',
         '--dynamic-json',
         '--disable-graphiql',
+        '--graphql',
+        '/',
       ]
 volumes:
   db:
