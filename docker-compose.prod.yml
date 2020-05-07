@@ -35,7 +35,7 @@ services:
     networks:
       - network
     ports:
-      - 5433:5433
+      - 80:5433
     command:
       [
         '--connection',
@@ -48,22 +48,6 @@ services:
         'postgraphile-plugin-connection-filter,@graphile-contrib/pg-simplify-inflector',
         '--cors',
       ]
-  front_end:
-    container_name: front_end
-    stdin_open: true
-    tty: true
-    volumes:
-      - './front-end:/app'
-      - '/app/node_modules'
-    build:
-      context: ./front-end/
-      dockerfile: Dockerfile.prod
-    ports:
-      - '80:80'
-    environment:
-      - CHOKIDAR_USEPOLLING=true
-    networks:
-      - network
 volumes:
   db:
 networks:
