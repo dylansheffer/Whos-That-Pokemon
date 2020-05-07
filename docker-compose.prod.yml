@@ -47,6 +47,19 @@ services:
         '--append-plugins',
         'postgraphile-plugin-connection-filter,@graphile-contrib/pg-simplify-inflector',
         '--cors',
+        '--subscriptions',
+        '--retry-on-init-fail',
+        '--dynamic-json',
+        '--no-setof-functions-contain-nulls',
+        '--no-ignore-rbac',
+        '--no-ignore-indexes',
+        '--extended-errors',
+        'errcode',
+        '--disable-graphiql',
+        '--enable-query-batching',
+        '--disable-query-log',
+        '-legacy-relations',
+        'omit',
       ]
 volumes:
   db:
