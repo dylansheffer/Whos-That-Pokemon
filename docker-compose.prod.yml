@@ -35,7 +35,7 @@ services:
     networks:
       - network
     ports:
-      - 80:5433
+      - 5433:5433
     command:
       [
         '--connection',
@@ -53,7 +53,19 @@ services:
         '--graphql',
         '/',
       ]
+  server:
+    restart: unless-stopped
+    image: staticfloat/nginx-certbot
+    ports:
+      - 80:80/tcp
+      - 443:443/tcp
+    environment:
+      CERTBOT_EMAIL: dsheffer16@gmail.com
+    volumes:
+      - ./conf.d:/etc/nginx/user.conf.d:ro
+      - letsencrypt:/etc/letsencrypt
 volumes:
   db:
+  letsencrypt:
 networks:
   network:
