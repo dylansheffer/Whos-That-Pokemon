@@ -115,6 +115,7 @@ const Game = (props) => {
 
   const onReset = () => {
     pokedexEntries.map(e => resetEntry({variables: {pokedexId: pokedex.pokedexId, pokemonId: e.pokemon.pokemonId}}))
+    completePokedex({ variables: { pokedexId: pokedex.pokedexId, isComplete: false } })
   };
 
   if (isComplete) return (

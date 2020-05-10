@@ -74,8 +74,8 @@ export const RESET_ENTRY = gql`
 `;
 
 export const COMPLETE_POKEDEX = gql`
-  mutation completePokedex($pokedexId: Int!) {
-  updatePokedex(input: {pokedexId: $pokedexId, patch: {isComplete: true}}) {
+  mutation completePokedex($pokedexId: Int!, $isComplete: Boolean = true) {
+  updatePokedex(input: {pokedexId: $pokedexId, patch: {isComplete: $isComplete}}) {
     pokedex {
       pokedexId
       pokedexEntries {
