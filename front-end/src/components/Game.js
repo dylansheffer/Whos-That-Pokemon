@@ -113,18 +113,22 @@ const Game = (props) => {
       })
   }
 
-  // const onReset = () => {
-  //   pokedexEntries.map(e => resetEntry({variables: {pokedexId: pokedex.pokedexId, pokemonId: e.pokemon.pokemonId}}))
-  // };
+  const onReset = () => {
+    pokedexEntries.map(e => resetEntry({variables: {pokedexId: pokedex.pokedexId, pokemonId: e.pokemon.pokemonId}}))
+  };
 
-  if (isComplete) return <p>Congratulations! You Win!</p>
+  if (isComplete) return (
+    <>
+      <p>Congratulations! You Win!</p>
+      <button onClick={onReset}>Restart Game</button>
+    </>
+  )
 
   if (seePokemonLoading || questions.length <= 0) return <p>Loading...</p>;
 
   return (
     <>
       <ToastContainer autoClose={timeBetweenQuizzes} />
-      {/* <button onClick={onReset}>Reset</button> */}
       <Quiz className={props.className} questions={questions} answer={answer} onAnswerSelected={onAnswerSelected} answerIsCorrect={answerIsCorrect} pokedex={pokedex} />
     </>
   );
