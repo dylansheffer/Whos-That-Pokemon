@@ -60,7 +60,7 @@ const Game = (props) => {
   const [seePokemon, { loading: seePokemonLoading }] = useMutation(SEE_POKEMON);
   const [catchPokemon] = useMutation(CATCH_POKEMON);
   const [completePokedex] = useMutation(COMPLETE_POKEDEX);
-  // const [resetEntry] = useMutation(RESET_ENTRY);
+  const [resetEntry] = useMutation(RESET_ENTRY);
   const [questions, setQuestions] = useState([]);
   const [answerIsCorrect, setAnswerIsCorrect] = useState();
   const answer = questions?.filter(q => q.isAnswer)[0];
