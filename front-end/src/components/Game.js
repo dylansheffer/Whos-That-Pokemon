@@ -103,7 +103,7 @@ const Game = (props) => {
         const pokedexIsComplete = entries.every(e => e.caught);
         if (pokedexIsComplete) {
           completePokedex({ variables: { pokedexId: pokedex.pokedexId } })
-          location.reload();
+          window.location.reload();
         }
       })
       .then(async () => {
@@ -117,7 +117,7 @@ const Game = (props) => {
   const onReset = () => {
     pokedexEntries.map(e => resetEntry({variables: {pokedexId: pokedex.pokedexId, pokemonId: e.pokemon.pokemonId}}))
     completePokedex({ variables: { pokedexId: pokedex.pokedexId, isComplete: false } });
-    location.reload();
+    window.location.reload();
   };
 
   if (isComplete) return (
