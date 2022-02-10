@@ -11,7 +11,7 @@
     "apollo-boost": "^0.4.7",
     "dialog-polyfill": "^0.5.1",
     "graphql": "^15.0.0",
-    "node-sass": "^4.14.0",
+    "node-sass": "^7.0.0",
     "normalize.css": "^8.0.1",
     "react": "^16.13.1",
     "react-a11y-dialog": "^4.1.1",
